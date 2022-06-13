@@ -9,13 +9,13 @@ const router = express.Router();
 router.post('/login',async(req,res)=>{
   const { username, password } = req.body;
   if (!username || !password || username =='' || password == '') {
-    res.json({msg:'Please provide both Username and Password'});
+    res.status(400).json({msg:'Please provide both Username and Password'});
     return;
   }
   let sql = `SELECT * FROM user WHERE username=?`;
   db.query(sql, [username], async (err, result) => {
     if (!result || !(await bcrypt.compare(password, result[0].password))) {
-      res.json({ msg: 'Username or Password is Incorrect' });
+      res.status(400).json({ msg: 'Username or Password is Incorrect' });
       return;
     }
     const id = result[0].id;
@@ -23,7 +23,7 @@ router.post('/login',async(req,res)=>{
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
     console.log(`Generated Token: ${token}`);
-    res.json({token,msg:'success'});
+    res.status(200).json({token,msg:'success'});
     console.log(result);
   })
 });
@@ -36,7 +36,7 @@ router.post('/signup',async(req,res)=>{
       return;
     }
     if (result.length > 0) {
-      res.json({error:'Username already in use!!'});
+      res.status(400).json({error:'Username already in use!!'});
       return;
     }
     let hashedPassword = await bcrypt.hash(password, 8);
@@ -49,7 +49,7 @@ router.post('/signup',async(req,res)=>{
       const token = await jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_IN,
       });
-      res.json({token,username});
+      res.status(200).json({token,username});
     });
   }); 
 });
