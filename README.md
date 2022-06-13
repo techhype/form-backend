@@ -6,7 +6,7 @@ This project was built with Node JS as backend with MySQL as database.
 
 ## Install
 
-    $ git clone https://github.com/YOUR_USERNAME/PROJECT_TITLE
+    $ git clone https://github.com/techhype/form-backend.git
     $ cd form-backend
     $ npm install
 
@@ -30,7 +30,7 @@ This project was built with Node JS as backend with MySQL as database.
 
     - Create .env file after install
     - Place the environment variables in .env file
-    
+
       `HOSTNAME=localhost
        PORT=5000
        DATABASE_HOST= <<localhost>> or <<hosted-DB-url>>
