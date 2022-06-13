@@ -25,8 +25,33 @@ router.post('/form/save-details',async(req,res)=>{
         throw err;
       } 
       console.log(`Row inserted successfully ${result}`);
-      // res.json({message:'Created an Account'});       
+      // res.json({message:'Added Form'});       
       res.json({id,status: '200',message: 'Added Form details successfully'});
+    });
+  }); 
+});
+
+
+router.post('/form/delete-details/:id', async (req, res) => {
+  const deletionId = req.params.id;
+  db.query('SELECT id FROM form WHERE id=? ', [deletionId], async (err, result) => {
+    if(err){
+      console.log(err);
+      return;
+    }
+    if (result.length < 0) {
+      res.json({status: '500',error:'No Form details with the provided id'});
+      return;
+    }
+    let sql = 'DELETE FROM form WHERE id=? ';
+    db.query(sql, [deletionId], async (err, result) => {
+      if (err){
+        res.json({status: '500',error: 'Error occured in saving form details'});
+        throw err;
+      } 
+      console.log(`Row deleted successfully ${result}`);
+      // res.json({message:'Deleted the form detail'});       
+      res.json({id: deletionId,status: '200',message: `Deleted Form detail with ${deletionId} successfully`});
     });
   }); 
 });
