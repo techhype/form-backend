@@ -4,6 +4,24 @@
 
 This project was built with Node JS as backend with MySQL as database.
 
+## Routes
+
+    - /signup ( registers the new user in the database)
+      - input: username, password 
+      - password: JWT Token
+
+    - /login (login user using token)
+      - input: username, password
+      - output: JWT Token
+
+    - /form/save-details ( saves the form details to database )
+      - input:  firstname, lastname, middlename, address, email, phonenumber, height, weight
+      - output: id,status,message
+    
+    - /form/delete-details/<<id>> ( delete the form details of the unique id from database)
+      - input: id (URL parameter)
+      - output: id,status,message
+
 ## Install
 
     $ git clone https://github.com/techhype/form-backend.git
